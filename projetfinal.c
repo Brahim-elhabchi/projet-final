@@ -13,14 +13,15 @@
  };
 
  struct player equipe [100];
-   int nbrjouours =0 ;
-
+   int nbrjouours =1 ;
+   int j=0;
+   int k=1;
    int ajouterjoueur()
 {
+     int n ;
     printf("donner le nombre de joueurs a ajouter : ");
-    int n,id ;;
     scanf("%d",&n);
-      id=0000001  ;
+      equipe[j].id=k;  ;
     for (int i =0 ; i<n ; i++)
     { int choixposte;
         printf("donner le nom du joueur %d : ",i+1);
@@ -55,7 +56,7 @@
                 printf("choix invalide \n");
                 break;
         }
-        equipe[nbrjouours].id=id;
+        equipe[nbrjouours].id=k;
         printf("donner le statut du joueur %d :\n ",i+1);
         printf("1-Titulaire \n");
         printf("2-Remplacant \n");
@@ -74,7 +75,7 @@
         }
          printf("le joueur %s a ete ajoute avec succes avec l'id %d \n",equipe[nbrjouours].name,equipe[nbrjouours].id);
         nbrjouours++;
-        id++;
+        k++;
     }
     return 0 ;
 }
@@ -113,7 +114,7 @@ int rechercherjoueur()
     {
         if(equipe[i].id==id)
         {
-            printf("le joueur %s a ete trouve avec succes \n",equipe[i].name);
+            printf("\003]031mle joueur %s a ete trouve avec succes \n]00m\033",equipe[i].name);
             printf("nom : %s \n",equipe[i].name);
             printf("age : %d \n",equipe[i].age);
             printf("nombre de buts : %d \n",equipe[i].goals);
@@ -231,12 +232,13 @@ int stattique(){
     printf("Pour rechercher un joueur, saissie sur ; rechercher\n");
     printf("Pour modifier un joueur, saissie sur ; modifier\n");
     printf("Pour supprimer un joueur, saissie sur ; supprimer\n");
+    printf("Pour afficher les statistiques, saissie sur ; statistique\n");
     printf("Pour quitter le programme, saissie sur ; quitter\n");
 
 }
 int main()
-{
-    
+{ 
+    freopen("equipe.txt","w",stdout);
     char choix[10];
     
     while(1)
@@ -272,7 +274,10 @@ int main()
         {
             printf("au revoir \n");
             break;
-        }
+        }else if (strcmp(choix,"Statistique")==0)
+        {
+            stattique();
+        } 
         else
         {
             printf("choix invalide \n");
