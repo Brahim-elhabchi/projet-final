@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<string.h>
+    int nbrjouours =11;
+      int idcnt=12;
+
      struct player
      {
      char name [25];
@@ -25,9 +28,6 @@
            {"Neuer", 37, 0, 1, "Gardien de but", 10, "Titulaire"},
            { "Messi", 38, 700, 10, "Attaquant", 11, "Titulaire"},
       };
-    int nbrjouours =12 ;
-      int j=1;
-      int k=1;
       int ajouterjoueur() 
     {
        if(nbrjouours>=100)
@@ -38,39 +38,41 @@
      int n ;
      printf("donner le nombre de joueurs a ajouter : ");
      scanf("%d",&n);
-      equipe[j].id=k+1;  
      for (int i =0 ; i<n ; i++)
-     { int choixposte;
+     {
+        int choixposte;
         printf("donner le nom du joueur %d : ",i+1);
-        scanf("%s",&equipe[nbrjouours].name);
+        scanf("%s",equipe[nbrjouours+1].name);
         printf("donner l'age du joueur %d : ",i+1);
-        scanf("%d",&equipe[nbrjouours].age);
+        scanf("%d",&equipe[nbrjouours+1].age);
         printf("donner le nombre de buts du joueur %d : ",i+1);
-        scanf("%d",&equipe[nbrjouours].goals);
+        scanf("%d",&equipe[nbrjouours+1].goals);
         printf("donner le numero de maillot du joueur %d : ",i+1);
-        scanf("%d",&equipe[nbrjouours].numero_maillot);
+        scanf("%d",&equipe[nbrjouours+1].numero_maillot);
         printf("donner le poste du joueur %d : \n",i+1);
         printf("1-Gardien de but \n");
         printf("2-Defenseur \n");
         printf("3-Milieu de terrain \n");
         printf("4-Attaquant \n");
         scanf("%d",&choixposte);
+        int invalid = 0;
         switch(choixposte)
         {
             case 1 :
-                strcpy(equipe[nbrjouours].poste,"Gardien de but");
+                strcpy(equipe[nbrjouours+1].poste,"Gardien de but");
                 break;
             case 2 :
-                strcpy(equipe[nbrjouours].poste,"Defenseur");
+                strcpy(equipe[nbrjouours+1].poste,"Defenseur");
                 break;
             case 3 :
-                strcpy(equipe[nbrjouours].poste,"Milieu de terrain");
+                strcpy(equipe[nbrjouours+1].poste,"Milieu de terrain");
                 break;
             case 4 :
-                strcpy(equipe[nbrjouours].poste,"Attaquant");
+                strcpy(equipe[nbrjouours+1].poste,"Attaquant");
                 break;
             default :
                 printf("choix invalide \n");
+                invalid = 1;
                 break;
         if(nbrjouours>=100)
         {
@@ -80,7 +82,6 @@
       }
         
 
-        equipe[nbrjouours].id!=0;
         printf("donner le statut du joueur %d :\n ",i+1);
         printf("1-Titulaire \n");
         printf("2-Remplacant \n");
@@ -88,39 +89,42 @@
         switch(choixposte)
         {
             case 1 :
-                strcpy(equipe[nbrjouours].statut,"Titulaire");
+                strcpy(equipe[nbrjouours+1].statut,"Titulaire");
                 break;
             case 2 :
-                strcpy(equipe[nbrjouours].statut,"Remplacant");
+                strcpy(equipe[nbrjouours+1].statut,"Remplacant");
                 break;
             default :
+                invalid = 1;
                 printf("choix invalide \n");
                 break;
         }
-         printf("le joueur %s a ete ajoute avec succes avec l'id %d \n",equipe[nbrjouours].name,equipe[nbrjouours].id);
-        nbrjouours++;
-        equipe[j].id=k+1;  
+        if (invalid == 0) {
+            nbrjouours++;
+            equipe[nbrjouours].id = idcnt++;
+            printf("le joueur %s a ete ajoute avec succes avec l'id %d \n",equipe[nbrjouours].name,equipe[nbrjouours].id);
+        }
+     
      }
      return 0 ;
      }
       int afficherplayers()
-
-    
-     {
+{
       if(nbrjouours==0)
        {
         printf("il n y a pas de joueurs dans l equipe \n");
         return 0;
        }
-      for ( int i=0 ; i<nbrjouours ; i++)
+       printf(":::::::%d:::::::\n", nbrjouours);
+      for ( int i=0 ; i<nbrjouours; i++)
       {
         printf("le joueur %d : \n",i+1);
-        printf("nom : %s \n",equipe[i].name);
-        printf("age : %d \n",equipe[i].age);
-        printf("nombre de buts : %d \n",equipe[i].goals);
-        printf("numero de maillot : %d \n",equipe[i].numero_maillot);
-        printf("poste : %s \n",equipe[i].poste);
-        printf("id : %d \n",equipe[i].id);
+        printf("nom : %s \n",equipe[i+1].name);
+        printf("age : %d \n",equipe[i+1].age);
+        printf("nombre de buts : %d \n",equipe[i+1].goals);
+        printf("numero de maillot : %d \n",equipe[i+1].numero_maillot);
+        printf("poste : %s \n",equipe[i+1].poste);
+        printf("id : %d \n",equipe[i+1].id);
         printf("\n");
      }
      return 0;
@@ -132,25 +136,25 @@
         printf("il n y a pas de joueurs dans l equipe \n");
         return 0;
      }
-      int id ;
+      int ids ;
       printf("donner l'id du joueur a rechercher : ");
-      scanf("%d",&id);
+      scanf("%d",&ids);
       for ( int i=0 ; i<nbrjouours ; i++)
       {
-        if(equipe[i].id==id)
+        if(equipe[i].id==ids)
         {
-            printf("\003]031mle joueur %s a ete trouve avec succes \n]00m\033",equipe[i].name);
-            printf("nom : %s \n",equipe[i].name);
-            printf("age : %d \n",equipe[i].age);
-            printf("nombre de buts : %d \n",equipe[i].goals);
-            printf("numero de maillot : %d \n",equipe[i].numero_maillot);
-            printf("poste : %s \n",equipe[i].poste);
-            printf("id : %d \n",equipe[i].id);
-            printf("statut : %s \n",equipe[i].statut);
+            printf("le joueur %s a ete trouve avec succes \n",equipe[i+1].name);
+            printf("nom : %s \n",equipe[i+1].name);
+            printf("age : %d \n",equipe[i+1].age);
+            printf("nombre de buts : %d \n",equipe[i+1].goals);
+            printf("numero de maillot : %d \n",equipe[i+1].numero_maillot);
+            printf("poste : %s \n",equipe[i+1].poste);
+            printf("id : %d \n",equipe[i+1].id);
+            printf("statut : %s \n",equipe[i+1].statut);
             return 0;
         }
      }
-      printf("le joueur avec l'id %d n'a pas ete trouve \n",id);
+      printf("le joueur avec l'id %d n'a pas ete trouve \n",ids);
       return 0;
      }
      int modifierjoueur()
@@ -160,66 +164,66 @@
         printf("il n y a pas de joueurs dans l equipe \n");
         return 0;
      }
-     int id ;
+     int idr ;
      printf("donner l'id du joueur a modifier : ");
-     scanf("%d",&id);
+     scanf("%d",&idr);
       for ( int i=0 ; i<nbrjouours ; i++)
       {
-        if(equipe[i].id==id)
+        if(equipe[i].id==idr)
         {
-           printf(" Vous pouvez modifier les informations du joueur%s\n",equipe[i].name);
-            printf("le joueur %s a ete trouve avec succes \n",equipe[i].name);
+           printf(" Vous pouvez modifier les informations du joueur%s\n",equipe[i+1].name);
+            printf("le joueur %s a ete trouve avec succes \n",equipe[i+1].name);
             printf("donner le nouvel age du joueur : ");
-            scanf("%d",&equipe[i].age);
+            scanf("%d",&equipe[i+1].age);
             printf("donner le nouveau nombre de buts du joueur : ");
-            scanf("%d",&equipe[i].goals);
+            scanf("%d",&equipe[i+1].goals);
             printf("donner le nouveau numero de maillot du joueur : ");
-            scanf("%d",&equipe[i].numero_maillot);
+            scanf("%d",&equipe[i+1].numero_maillot);
             printf("donner le nouveau poste du joueur : ");
-            scanf("%s",equipe[i].poste);
-            printf("le joueur %s a ete modifie avec succes \n",equipe[i].name);
+            scanf("%s",equipe[i+1].poste);
+            printf("le joueur %s a ete modifie avec succes \n",equipe[i+1].name);
             return 0;
         }
       }
-       printf("le joueur avec l'id %d n'a pas ete trouve \n",id);
+       printf("le joueur avec l'id %d n'a pas ete trouve \n",idr);
        return 0;
      }
-      int supprimerjoueur()
+      void supprimerjoueur()
      {
        if(nbrjouours==0)
        {
         printf("il n y a pas de joueurs dans l equipe \n");
-        return 0;
+        return;
       }
-      int id;
+      int idss;
       printf("donner l'id du joueur a supprimer : ");
-      scanf("%d",&id);
+      scanf("%d",&idss);
       for ( int i=0 ; i<nbrjouours ; i++)
       {
-        if(equipe[i].id==id)
+        if(equipe[i+1].id==idss)
         {
-            for(int j=i ; j<nbrjouours-1 ; j++)
+            for(int j=i+1 ; j<nbrjouours-1 ; j++)
             {
                 equipe[j]=equipe[j+1];
             }
             nbrjouours--;
-            printf("le joueur avec l'id %d a ete supprime avec succes \n",id);
-            return 0;
+            printf("le joueur avec l'id %d a ete supprime avec succes \n",idss);
+            return ;
         }
       }
      }
-      int stattique(){
+      void stattique(){
         float moyenne ;
        if(nbrjouours==0)
        {
         printf("il n y a pas de joueurs dans l equipe \n");
-        return 0;
+        return ;
       } 
         int maxage=0;
          char joueurplusage[25];
         for ( int i=0 ; i<nbrjouours ; i++)
          {
-        if(equipe[i].age>maxage)
+        if(equipe[i+1].age>maxage)
         {
             maxage=equipe[i].age;
             strcpy(joueurplusage,equipe[i].name);
@@ -236,9 +240,9 @@
      printf("le nombre total des joueurs est de : %d \n",nbrjouours);
      int max=0;
      char meilleurbuteur[25];
-     for ( int i=0 ; i<nbrjouours ; i++)
+for ( int i=0 ; i<nbrjouours ; i++)
      {
-        if(equipe[i].goals>max)
+        if(equipe[i+1].goals>max)
         {
             max=equipe[i].goals;
             strcpy(meilleurbuteur,equipe[i].name);
@@ -248,7 +252,7 @@
      }
      void menu()
      {
-       printf("********** Bienvenue dans le gestionnaire de joueurs **********\n");
+       printf("\n \n \n \n");
        printf("Pour ajouter un joueur, saissie sur ; ajouter\n");
        printf("Pour afficher les joueurs, saissie sur ; afficher\n");
        printf("Pour rechercher un joueur, saissie sur ; rechercher\n");
@@ -265,23 +269,23 @@
             printf("il n y a pas de joueurs dans l equipe \n");
             return ;
          }
-         for (int i=0; i<nbrjouours ; i++)
+         for (int i=0; i<nbrjouours; i++)
          {  
-         for(int j=i+1 ; j<nbrjouours ; j++)
-         {
-               if(equipe[i].age>equipe[j].age)
-               {
-                  temp=equipe[i];
-                  equipe[i]=equipe[j];
-                  equipe[j]=temp;
-               }
-         }
+            for(int j=i+1 ; j<nbrjouours; j++)
+            {
+                if(equipe[i].age>equipe[j].age)
+                {
+                    temp=equipe[i];
+                    equipe[i]=equipe[j];
+                    equipe[j]=temp;
+                }
+            }
          }
          printf("les joueurs ont ete tries par age avec succes \n");
        }
        void triparalphabetique()
        {
-         struct player temp;
+        struct player temp;
          if(nbrjouours==0)
          {
             printf("il n y a pas de joueurs dans l equipe \n");
@@ -330,6 +334,10 @@
       }
      int main()
       { 
+            printf("********** Bienvenue dans le gestionnaire de joueurs **********\n");
+            
+            
+            
         char choix[10];
     
          while(1)
@@ -356,10 +364,6 @@
          else if(strcmp(choix,"supprimer")==0)
          {
             supprimerjoueur();
-         }
-         else if(strcmp(choix,"statistique")==0)
-         {
-            stattique();
          }
          else if(strcmp(choix,"quitter")==0)
          {
